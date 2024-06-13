@@ -22,3 +22,18 @@ spec:
           protocol: TCP
         securityContext:
             privileged: true
+        volumeMounts:
+        - name: hascam
+          mountPath: "/hascam"
+      initContainers:
+      - name: check-camera
+        image: jjanzic/docker-python3-opencv:opencv-4.0.1
+        command: ['python', '-c', "import sys; import cv2; a = cv2.VideoCapture(0); f = open('/hascam/has.txt', 'w'); f.write('False') if a is None or not a.isOpened() else f.write('True'); f.close(); a.release()"]
+        securityContext:
+            privileged: true
+        volumeMounts:
+        - name: hascam
+          mountPath: "/hascam"
+      volumes:
+      - name: hascam
+        emptyDir: {}
