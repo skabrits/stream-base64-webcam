@@ -4,9 +4,9 @@
 
 image:
   repository: "skabrits/stream-base64-webcam"
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.1.0"
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
