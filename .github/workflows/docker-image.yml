@@ -20,4 +20,4 @@ jobs:
         PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: docker login -u $USER -p $PASSWORD
     - name: Build the Docker image and push
-      run: find -iname "Dockerfile" -exec bash -c 'cd $(dirname $@) && docker pull ${{secrets.DOCKER_USER}}/stream-base64-webcam:latest && docker build . --cache-from ${{secrets.DOCKER_USER}}/stream-base64-webcam:latest --file $(basename $@) -t ${{secrets.DOCKER_USER}}/stream-base64-webcam:$(cat tag) -t ${{secrets.DOCKER_USER}}/stream-base64-webcam:latest && docker push ${{secrets.DOCKER_USER}}/stream-base64-webcam -a' bash {} \;
+      run: find -iname "Dockerfile" -exec bash -c 'cd $(dirname $@) && docker pull ${{secrets.DOCKER_USER}}/stream-base64-webcam:latest && docker build . --cache-from ${{secrets.DOCKER_USER}}/stream-base64-webcam:latest --build-arg BUILDKIT_INLINE_CACHE=1 --file $(basename $@) -t ${{secrets.DOCKER_USER}}/stream-base64-webcam:$(cat tag) -t ${{secrets.DOCKER_USER}}/stream-base64-webcam:latest && docker push ${{secrets.DOCKER_USER}}/stream-base64-webcam -a' bash {} \;

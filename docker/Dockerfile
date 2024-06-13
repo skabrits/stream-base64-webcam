@@ -13,4 +13,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "[ \"$(cat /hascam/has.txt)\" = \"True\" ] && gunicorn --chdir app app:app -b 0.0.0.0:8000"]
+CMD ["sh", "-c", "if [ \"$(cat /hascam/has.txt)\" = \"True\" ]; then gunicorn --chdir app app:app -b 0.0.0.0:8000; else tail -f /dev/null; fi"]
